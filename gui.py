@@ -1,3 +1,6 @@
+import threading
+import time
+import os
 import main
 import tkinter
 from tkinter import ttk
@@ -14,6 +17,8 @@ class GUI(tkinter.Tk):
         s = ttk.Style()
         s.theme_use('vista')
 
+        self.reset_thread = threading.Thread(target=lambda: self.reset_status_bar())
+
         self.build_interface()
 
     def build_interface(self):
@@ -21,7 +26,7 @@ class GUI(tkinter.Tk):
         self.output_file = tkinter.StringVar()
         self.statusbar_text = tkinter.StringVar()
 
-        self.statusbar_text.set('Waiting.')
+        self.reset_status_bar()
 
         self.input_frame = tkinter.LabelFrame(self, text='Input file')
         self.input_frame.grid(row=0, column=0, padx=2, pady=(2,0))
@@ -85,6 +90,11 @@ class GUI(tkinter.Tk):
         self.statusbar_text.set("Converting...")
         main.convert_xml_to_csv(self.input_file.get(), self.output_file.get())
         self.statusbar_text.set("Done!")
+        self.after(5000, self.reset_status_bar)
+
+
+    def reset_status_bar(self):
+        self.statusbar_text.set('Ready')
 
 
 if __name__ == '__main__':
