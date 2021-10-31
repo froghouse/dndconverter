@@ -9,22 +9,24 @@ class GUI(tkinter.Tk):
         super().__init__()
 
         self.title('DnD Converter')
-        self.geometry('300x150')
+        self.geometry('295x150')
 
         s = ttk.Style()
         s.theme_use('vista')
-        print(s.theme_use())
 
         self.build_interface()
 
     def build_interface(self):
         self.input_file = tkinter.StringVar()
         self.output_file = tkinter.StringVar()
+        self.statusbar_text = tkinter.StringVar()
+
+        self.statusbar_text.set('Waiting.')
 
         self.input_frame = tkinter.LabelFrame(self, text='Input file')
         self.input_frame.grid(row=0, column=0, padx=2, pady=(2,0))
 
-        self.input_box = ttk.Entry(self.input_frame, textvariable=self.input_file)
+        self.input_box = ttk.Entry(self.input_frame, width=33, textvariable=self.input_file)
         self.input_box.grid(row=0, column=0, padx=2, pady=(2,0))
 
         self.input_browse_button = ttk.Button(self.input_frame, 
@@ -35,7 +37,7 @@ class GUI(tkinter.Tk):
         self.output_frame = tkinter.LabelFrame(self, text='Output file')
         self.output_frame.grid(row=1, column=0, padx=2, pady=(2,0))
 
-        self.output_box = ttk.Entry(self.output_frame, textvariable=self.output_file)
+        self.output_box = ttk.Entry(self.output_frame, width=33, textvariable=self.output_file)
         self.output_box.grid(row=0, column=0, padx=2, pady=(2,0))
 
         self.output_browse_button = ttk.Button(self.output_frame, 
@@ -46,8 +48,13 @@ class GUI(tkinter.Tk):
         self.convert_button = ttk.Button(self, text='Convert', command=self.convert_command)
         self.convert_button.grid(row=2, column=0, padx=2, pady=5)
 
+        self.statusbar = tkinter.Label(self, textvariable=self.statusbar_text, bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W)
+        self.statusbar.grid(row=3, column=0, columnspan=2, sticky='sew')
+
     def convert_command(self):
+        self.statusbar_text.set("Converting...")
         main.convert_xml_to_csv(self.input_file.get(), self.output_file.get())
+        self.statusbar_text.set("Done!")
 
 
 if __name__ == '__main__':
