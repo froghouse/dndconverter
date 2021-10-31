@@ -37,22 +37,22 @@ def read_xml(filename: str) -> list:
     for item in items:
         try:
             title = item.find('name').text
-        except(AttributeError):
+        except (AttributeError):
             title = ''
 
         try:
             description = text_filter(''.join(item.find('description').itertext()))
-        except(AttributeError):
+        except (AttributeError):
             description = ''
 
         try:
             weight = item.find('weight').text
-        except(AttributeError):
+        except (AttributeError):
             weight = ''
 
         try:
             price = price_in_gp(item.find('cost').text)
-        except(AttributeError):
+        except (AttributeError):
             price = 0.0
 
         rows.append([title, description, weight, '1', price, ''])
@@ -81,4 +81,7 @@ def main(*args, **kwargs) -> None:
     print(f'Converted {num_items} items.')
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2])
+    try:
+        main(sys.argv[1], sys.argv[2])
+    except (IndexError):
+        print("Usage: $ python3 main.py file_a.xml file_b.csv")
