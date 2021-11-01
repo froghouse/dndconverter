@@ -81,6 +81,7 @@ def main(*args, **kwargs) -> None:
         raise AttributeError('The function main() requires at least two arguments.')
     elif args[0] == '' or args[1] == '':
         raise AttributeError('No filenames given.')
+    
     num_items = convert_xml_to_csv(args[0], args[1])
     print(f'Converted {num_items} items.')
 
