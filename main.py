@@ -27,6 +27,16 @@ def text_filter(data: str) -> str:
     """Replace newlines, tabs and strange apostrophes."""
     return ''.join(data).strip().replace('\n', '').replace('\t', ' ').replace(chr(0x92), "'")
 
+def fix_line_endings(filename: str) -> str:
+    with open(filename, 'r') as f:
+        contents = f.read()
+        contents = contents.replace('\r\r\n', '\r\n')
+    
+    with open(filename, 'w') as f:
+        f.write(contents)
+
+    return contents
+
 def read_xml(filename: str) -> list:
     """Parse the XML data into a list."""
     tree = ET.parse(filename)
@@ -67,6 +77,7 @@ def write_csv(filename: str, headers: list, data: list) -> None:
         writer = csv.writer(f)
         writer.writerow(headers)
         writer.writerows(data)
+    fix_line_endings(filename)
 
 def convert_xml_to_csv(file_in: str, file_out: str) -> int:
     """Converts an XML file produced by program A to a CSV file to be imported by program B"""

@@ -9,6 +9,7 @@ class GUI(tkinter.Tk):
 
         self.title('DnD Converter')
         self.geometry('295x150')
+        self.iconbitmap('dnd-icon-22.ico')
 
         s = ttk.Style()
         s.theme_use('vista')
