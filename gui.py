@@ -91,15 +91,14 @@ class GUI(tkinter.Tk):
         except FileNotFoundError as fe:
             messagebox.showerror(title='File not found!', message=fe)
             self.statusbar_text.set(f"File not found!")
-
+        
+        self.input_file.set('')
+        self.output_file.set('')
         self.after(3000, self.reset_status_bar)
 
 
     def reset_status_bar(self):
         self.statusbar_text.set('Ready')
-        self.input_file.set('')
-        self.output_file.set('')
-
 
 if __name__ == '__main__':
     gui = GUI()
