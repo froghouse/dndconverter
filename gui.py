@@ -2,7 +2,7 @@ import main
 import tkinter
 from tkinter import ttk
 from tkinter import filedialog
-
+from tkinter import messagebox
 class GUI(tkinter.Tk):
     def __init__(self):
         super().__init__()
@@ -82,13 +82,23 @@ class GUI(tkinter.Tk):
 
     def convert_command(self):
         self.statusbar_text.set("Converting...")
-        items = main.convert_xml_to_csv(self.input_file.get(), self.output_file.get())
-        self.statusbar_text.set(f"Done! Converted {items} items.")
-        self.after(5000, self.reset_status_bar)
+        try:
+            items = main.convert_xml_to_csv(self.input_file.get(), self.output_file.get())
+            self.statusbar_text.set(f"Done! Converted {items} items.")
+        except AttributeError as ae:
+            messagebox.showerror(title='Exception!', message=ae)
+            self.statusbar_text.set(f"Exception!")
+        except FileNotFoundError as fe:
+            messagebox.showerror(title='File not found!', message=fe)
+            self.statusbar_text.set(f"File not found!")
+
+        self.after(3000, self.reset_status_bar)
 
 
     def reset_status_bar(self):
         self.statusbar_text.set('Ready')
+        self.input_file.set('')
+        self.output_file.set('')
 
 
 if __name__ == '__main__':
