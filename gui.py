@@ -1,11 +1,7 @@
-import threading
-import time
-import os
 import main
 import tkinter
 from tkinter import ttk
 from tkinter import filedialog
-from tkinter.messagebox import showinfo
 
 class GUI(tkinter.Tk):
     def __init__(self):
@@ -16,8 +12,6 @@ class GUI(tkinter.Tk):
 
         s = ttk.Style()
         s.theme_use('vista')
-
-        self.reset_thread = threading.Thread(target=lambda: self.reset_status_bar())
 
         self.build_interface()
 
@@ -88,8 +82,8 @@ class GUI(tkinter.Tk):
 
     def convert_command(self):
         self.statusbar_text.set("Converting...")
-        main.convert_xml_to_csv(self.input_file.get(), self.output_file.get())
-        self.statusbar_text.set("Done!")
+        items = main.convert_xml_to_csv(self.input_file.get(), self.output_file.get())
+        self.statusbar_text.set(f"Done! Converted {items} items.")
         self.after(5000, self.reset_status_bar)
 
 
@@ -99,4 +93,5 @@ class GUI(tkinter.Tk):
 
 if __name__ == '__main__':
     gui = GUI()
+    gui.resizable(False, False)
     gui.mainloop()
