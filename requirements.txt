@@ -1,2 +1,2 @@
 pytest-pylint==0.18.0
-pytest-flake8==1.0.5
+pytest-flake8==1.0.7
