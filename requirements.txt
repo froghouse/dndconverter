@@ -1,5 +1,5 @@
-pytest = {version="*"}
-flake8 = {version="==3.9.2"}
-pylint = {version="*"}
-pytest-flake8 = {version="*"}
-pytest-pylint = {version="*"}
+pytest == "*"
+flake8 == "==3.9.2"
+pylint == "*"
+pytest-flake8 == "*"
+pytest-pylint == "*"
