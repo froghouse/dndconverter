@@ -1,9 +1,15 @@
 """Manage the GUI portion of the application"""
+import os
 import tkinter
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
 import main
+
+
+def is_windows() -> bool:
+    """Return if we are on windows or not"""
+    return os.name == 'nt'
 
 
 class GUI(tkinter.Tk):
@@ -19,8 +25,9 @@ class GUI(tkinter.Tk):
         self.geometry('295x150')
         self.iconbitmap('dnd-icon-22.ico')
 
-        style = ttk.Style()
-        style.theme_use('vista')
+        if is_windows():
+            style = ttk.Style()
+            style.theme_use('vista')
 
         self.build_interface()
 
