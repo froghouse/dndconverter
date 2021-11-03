@@ -25,17 +25,18 @@ def price_in_gp(raw_price: str) -> float:
 
 def text_filter(data: str) -> str:
     """Replace newlines, tabs and strange apostrophes."""
-    return ''.join(data).strip().replace('\n', '').replace('\t', ' ').replace(chr(0x92), "'")
+    return ''.join(data).strip().replace('\r\n', '').replace('\t', ' ').replace(chr(0x92), "'")
 
-def fix_line_endings(filename: str) -> str:
+def fix_line_endings(filename: str) -> None:
     with open(filename, 'r') as f:
         contents = f.read()
-        contents = contents.replace('\r\r\n', '\r\n')
+        contents = re.sub('\r\r\n', '\r\n', contents)
+        print([i for i in contents.split('\n') if i])
+        contents = '\n'.join([i for i in contents.split('\n') if i])
     
     with open(filename, 'w') as f:
         f.write(contents)
 
-    return contents
 
 def read_xml(filename: str) -> list:
     """Parse the XML data into a list."""
