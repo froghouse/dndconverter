@@ -1,4 +1,4 @@
-# Version 1.2.1
+"""The main file containing business logic"""
 import sys
 import re
 import csv
@@ -36,14 +36,15 @@ def text_filter(data: str) -> str:
 
 
 def fix_line_endings(filename: str) -> None:
-    with open(filename, 'r') as f:
-        contents = f.read()
+    """Making sure no extranious newline characters exists"""
+    with open(filename, 'r', encoding='iso-8859-1') as file:
+        contents = file.read()
         contents = re.sub('\r\r\n', '\r\n', contents)
         print([i for i in contents.split('\n') if i])
         contents = '\n'.join([i for i in contents.split('\n') if i])
 
-    with open(filename, 'w') as f:
-        f.write(contents)
+    with open(filename, 'w', encoding='iso-8859-1') as file:
+        file.write(contents)
 
 
 def read_xml(filename: str) -> list:
@@ -56,24 +57,24 @@ def read_xml(filename: str) -> list:
     for item in items:
         try:
             title = item.find('name').text
-        except (AttributeError):
+        except AttributeError:
             title = ''
 
         try:
             description = text_filter(
                 ''.join(item.find('description').itertext())
                 )
-        except (AttributeError):
+        except AttributeError:
             description = ''
 
         try:
             weight = item.find('weight').text
-        except (AttributeError):
+        except AttributeError:
             weight = ''
 
         try:
             price = price_in_gp(item.find('cost').text)
-        except (AttributeError):
+        except AttributeError:
             price = 0.0
 
         rows.append([title, description, weight, '1', price, ''])
@@ -83,8 +84,8 @@ def read_xml(filename: str) -> list:
 
 def write_csv(filename: str, headers: list, data: list) -> None:
     """Writes the data as a CSV file to the file filename"""
-    with open(filename, 'w', encoding='iso-8859-1') as f:
-        writer = csv.writer(f)
+    with open(filename, 'w', encoding='iso-8859-1') as file:
+        writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(data)
     fix_line_endings(filename)
@@ -99,12 +100,14 @@ def convert_xml_to_csv(file_in: str, file_out: str) -> int:
     return len(rows)
 
 
-def main(*args, **kwargs) -> None:
+def main(*args) -> None:
+    """Main entry point of the application"""
     if len(args) < 2:
         raise AttributeError(
             'The function main() requires at least two arguments.'
             )
-    elif args[0] == '' or args[1] == '':
+
+    if args[0] == '' or args[1] == '':
         raise AttributeError('No filenames given.')
 
     num_items = convert_xml_to_csv(args[0], args[1])
@@ -114,5 +117,5 @@ def main(*args, **kwargs) -> None:
 if __name__ == '__main__':
     try:
         main(sys.argv[1], sys.argv[2])
-    except (IndexError):
+    except IndexError:
         print("Usage: $ python3 main.py file_a.xml file_b.csv")
