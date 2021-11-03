@@ -9,8 +9,8 @@ import main
 class GUI(tkinter.Tk):
     """GUI manager"""
 
-    #pylint: disable=too-many-instance-attributes
-    #The amount of instance attributes are reasonable
+    # pylint: disable=too-many-instance-attributes
+    # The amount of instance attributes are reasonable
 
     def __init__(self):
         super().__init__()

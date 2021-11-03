@@ -16,5 +16,5 @@ install:
   - pip3 install --upgrade pip
   - pip3 install -r requirements.txt
 script:
-  - pytest --flake8
+  - flake8
   - pytest --pylint
