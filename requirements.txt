@@ -1,2 +1,5 @@
-pytest-pylint==0.18.0
-pytest-flake8==1.0.7
+pytest = {version="*"}
+flake8 = {version="==3.9.2"}
+pylint = {version="*"}
+pytest-flake8 = {version="*"}
+pytest-pylint = {version="*"}
