@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 
 
 def price_in_gp(raw_price: str) -> float:
-    """Returns the price given in any unit as the price in GP."""
+    """Return the price given in any unit as the price in GP."""
     price_list = [int(s) for s in raw_price.split() if s.isdigit()]
     final_price = 0.0
     if len(price_list):
@@ -36,7 +36,7 @@ def text_filter(data: str) -> str:
 
 
 def fix_line_endings(filename: str) -> None:
-    """Making sure no extranious newline characters exists"""
+    """Make sure no extranious newline characters exists"""
     with open(filename, 'r', encoding='iso-8859-1') as file:
         contents = file.read()
         contents = re.sub('\r\r\n', '\r\n', contents)
@@ -83,7 +83,7 @@ def read_xml(filename: str) -> list:
 
 
 def write_csv(filename: str, headers: list, data: list) -> None:
-    """Writes the data as a CSV file to the file filename"""
+    """Write the data as a CSV file to the file filename"""
     with open(filename, 'w', encoding='iso-8859-1') as file:
         writer = csv.writer(file)
         writer.writerow(headers)
@@ -92,7 +92,7 @@ def write_csv(filename: str, headers: list, data: list) -> None:
 
 
 def convert_xml_to_csv(file_in: str, file_out: str) -> int:
-    """Converting data from XML to CSV"""
+    """Convert the data from XML to CSV"""
     headers = ['title', 'description', 'weight', 'qty', 'price', 'rarity']
     rows = read_xml(file_in)
     write_csv(file_out, headers, rows)

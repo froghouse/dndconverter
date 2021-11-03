@@ -1,11 +1,17 @@
-import main
+"""Manage the GUI portion of the application"""
 import tkinter
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
+import main
 
 
 class GUI(tkinter.Tk):
+    """GUI manager"""
+
+    #pylint: disable=too-many-instance-attributes
+    #The amount of instance attributes are reasonable
+
     def __init__(self):
         super().__init__()
 
@@ -13,12 +19,13 @@ class GUI(tkinter.Tk):
         self.geometry('295x150')
         self.iconbitmap('dnd-icon-22.ico')
 
-        s = ttk.Style()
-        s.theme_use('vista')
+        style = ttk.Style()
+        style.theme_use('vista')
 
         self.build_interface()
 
     def build_interface(self):
+        """Logic for building the graphical interface"""
         self.input_file = tkinter.StringVar()
         self.output_file = tkinter.StringVar()
         self.statusbar_text = tkinter.StringVar()
@@ -84,6 +91,7 @@ class GUI(tkinter.Tk):
         self.statusbar.grid(row=3, column=0, columnspan=2, sticky='sew')
 
     def convert_command(self):
+        """Trigger the conversion from XML to CSV"""
         self.statusbar_text.set("Converting...")
         try:
             items = main.convert_xml_to_csv(
@@ -91,11 +99,11 @@ class GUI(tkinter.Tk):
                 self.output_file.get()
                 )
             self.statusbar_text.set(f"Done! Converted {items} items.")
-        except AttributeError as ae:
-            messagebox.showerror(title='Exception!', message=ae)
+        except AttributeError as atribute_error:
+            messagebox.showerror(title='Exception!', message=atribute_error)
             self.statusbar_text.set('Exception!')
-        except FileNotFoundError as fe:
-            messagebox.showerror(title='File not found!', message=fe)
+        except FileNotFoundError as file_error:
+            messagebox.showerror(title='File not found!', message=file_error)
             self.statusbar_text.set('File not found!')
 
         self.input_file.set('')
@@ -103,6 +111,7 @@ class GUI(tkinter.Tk):
         self.after(3000, self.reset_status_bar)
 
     def reset_status_bar(self):
+        """Reset the status bar to display further messages"""
         self.statusbar_text.set('Ready')
 
 
