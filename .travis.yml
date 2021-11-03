@@ -18,3 +18,4 @@ install:
 script:
   - flake8
   - pytest --pylint
+  - pyinstaller --onefile --windowed --icon=dnd-icon-22.ico --name=DnDConverter gui.py
