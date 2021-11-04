@@ -40,7 +40,6 @@ def fix_line_endings(filename: str) -> None:
     with open(filename, 'r', encoding='iso-8859-1') as file:
         contents = file.read()
         contents = re.sub('\r\r\n', '\r\n', contents)
-        print([i for i in contents.split('\n') if i])
         contents = '\n'.join([i for i in contents.split('\n') if i])
 
     with open(filename, 'w', encoding='iso-8859-1') as file:
