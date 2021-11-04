@@ -34,7 +34,7 @@ class GUI(tkinter.Tk):
 
     def build_interface(self) -> None:
         """Logic for building the graphical interface"""
-        self.components = dict()
+        self.components = {}
         self.components['input_file'] = tkinter.StringVar()
         self.components['output_file'] = tkinter.StringVar()
         self.components['statusbar_text'] = tkinter.StringVar()
@@ -47,8 +47,13 @@ class GUI(tkinter.Tk):
         self.status_field()
 
     def input_field(self) -> None:
-        self.components['input_frame'] = tkinter.LabelFrame(self, text='Input file')
-        self.components['input_frame'].grid(row=0, column=0, padx=2, pady=(2, 0))
+        """Logic for displaying the input field"""
+        self.components['input_frame'] = tkinter.LabelFrame(
+            self, text='Input file'
+            )
+        self.components['input_frame'].grid(
+            row=0, column=0, padx=2, pady=(2, 0)
+            )
 
         self.components['input_entry'] = ttk.Entry(
             self.components['input_frame'],
@@ -56,7 +61,9 @@ class GUI(tkinter.Tk):
             textvariable=self.components['input_file'],
             state='disabled'
         )
-        self.components['input_entry'].grid(row=0, column=0, padx=2, pady=(2, 0))
+        self.components['input_entry'].grid(
+            row=0, column=0, padx=2, pady=(2, 0)
+            )
 
         self.components['input_browse_button'] = ttk.Button(
             self.components['input_frame'],
@@ -67,11 +74,18 @@ class GUI(tkinter.Tk):
                 )
             )
         )
-        self.components['input_browse_button'].grid(row=0, column=1, padx=2, pady=(2, 0))
+        self.components['input_browse_button'].grid(
+            row=0, column=1, padx=2, pady=(2, 0)
+            )
 
     def output_field(self) -> None:
-        self.components['output_frame'] = tkinter.LabelFrame(self, text='Output file')
-        self.components['output_frame'].grid(row=1, column=0, padx=2, pady=(2, 0))
+        """Logic for displaying the output field"""
+        self.components['output_frame'] = tkinter.LabelFrame(
+            self, text='Output file'
+            )
+        self.components['output_frame'].grid(
+            row=1, column=0, padx=2, pady=(2, 0)
+            )
 
         self.components['output_entry'] = ttk.Entry(
             self.components['output_frame'],
@@ -79,7 +93,9 @@ class GUI(tkinter.Tk):
             textvariable=self.components['output_file'],
             state='disabled'
         )
-        self.components['output_entry'].grid(row=0, column=0, padx=2, pady=(2, 0))
+        self.components['output_entry'].grid(
+            row=0, column=0, padx=2, pady=(2, 0)
+            )
 
         self.components['output_browse_button'] = ttk.Button(
             self.components['output_frame'],
@@ -90,9 +106,12 @@ class GUI(tkinter.Tk):
                 )
             )
         )
-        self.components['output_browse_button'].grid(row=0, column=1, padx=2, pady=(2, 0))
+        self.components['output_browse_button'].grid(
+            row=0, column=1, padx=2, pady=(2, 0)
+            )
 
     def convert_field(self) -> None:
+        """Logic for displaying the convert button"""
         self.components['convert_button'] = ttk.Button(
             self,
             text='Convert',
@@ -101,6 +120,7 @@ class GUI(tkinter.Tk):
         self.components['convert_button'].grid(row=2, column=0, padx=2, pady=5)
 
     def status_field(self) -> None:
+        """Logic for displaying the status bar"""
         self.components['statusbar'] = tkinter.Label(
             self,
             textvariable=self.components['statusbar_text'],
@@ -108,7 +128,9 @@ class GUI(tkinter.Tk):
             relief=tkinter.SUNKEN,
             anchor=tkinter.W
         )
-        self.components['statusbar'].grid(row=3, column=0, columnspan=2, sticky='sew')
+        self.components['statusbar'].grid(
+            row=3, column=0, columnspan=2, sticky='sew'
+            )
 
     def convert_command(self) -> None:
         """Trigger the conversion from XML to CSV"""
