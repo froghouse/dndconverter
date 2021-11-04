@@ -49,11 +49,15 @@ class GUI(tkinter.Tk):
     def input_field(self) -> None:
         """Logic for displaying the input field"""
         self.components['input_frame'] = tkinter.LabelFrame(
-            self, text='Input file'
-            )
+            self, 
+            text='Input file'
+        )
         self.components['input_frame'].grid(
-            row=0, column=0, padx=2, pady=(2, 0)
-            )
+            row=0, 
+            column=0, 
+            padx=(2, 2), 
+            pady=(2, 0)
+        )
 
         self.components['input_entry'] = ttk.Entry(
             self.components['input_frame'],
@@ -62,8 +66,11 @@ class GUI(tkinter.Tk):
             state='disabled'
         )
         self.components['input_entry'].grid(
-            row=0, column=0, padx=2, pady=(2, 0)
-            )
+            row=0, 
+            column=0, 
+            padx=(2, 2), 
+            pady=(2, 0)
+        )
 
         self.components['input_browse_button'] = ttk.Button(
             self.components['input_frame'],
@@ -75,17 +82,24 @@ class GUI(tkinter.Tk):
             )
         )
         self.components['input_browse_button'].grid(
-            row=0, column=1, padx=2, pady=(2, 0)
-            )
+            row=0,
+            column=1,
+            padx=(2, 2),
+            pady=(2, 0)
+        )
 
     def output_field(self) -> None:
         """Logic for displaying the output field"""
         self.components['output_frame'] = tkinter.LabelFrame(
-            self, text='Output file'
-            )
+            self, 
+            text='Output file'
+        )
         self.components['output_frame'].grid(
-            row=1, column=0, padx=2, pady=(2, 0)
-            )
+            row=1,
+            column=0,
+            padx=2,
+            pady=(2, 0)
+        )
 
         self.components['output_entry'] = ttk.Entry(
             self.components['output_frame'],
@@ -94,8 +108,11 @@ class GUI(tkinter.Tk):
             state='disabled'
         )
         self.components['output_entry'].grid(
-            row=0, column=0, padx=2, pady=(2, 0)
-            )
+            row=0,
+            column=0,
+            padx=(2, 2),
+            pady=(2, 0)
+        )
 
         self.components['output_browse_button'] = ttk.Button(
             self.components['output_frame'],
@@ -107,8 +124,11 @@ class GUI(tkinter.Tk):
             )
         )
         self.components['output_browse_button'].grid(
-            row=0, column=1, padx=2, pady=(2, 0)
-            )
+            row=0,
+            column=1,
+            padx=(2, 2),
+            pady=(2, 0)
+        )
 
     def convert_field(self) -> None:
         """Logic for displaying the convert button"""
@@ -117,7 +137,12 @@ class GUI(tkinter.Tk):
             text='Convert',
             command=self.convert_command
         )
-        self.components['convert_button'].grid(row=2, column=0, padx=2, pady=5)
+        self.components['convert_button'].grid(
+            row=2,
+            column=0,
+            padx=(2, 2),
+            pady=5
+        )
 
     def status_field(self) -> None:
         """Logic for displaying the status bar"""
@@ -129,8 +154,11 @@ class GUI(tkinter.Tk):
             anchor=tkinter.W
         )
         self.components['statusbar'].grid(
-            row=3, column=0, columnspan=2, sticky='sew'
-            )
+            row=3,
+            column=0,
+            columnspan=2,
+            sticky='sew'
+        )
 
     def convert_command(self) -> None:
         """Trigger the conversion from XML to CSV"""
@@ -139,10 +167,10 @@ class GUI(tkinter.Tk):
             items = main.convert_xml_to_csv(
                 self.components['input_file'].get(),
                 self.components['output_file'].get()
-                )
+            )
             self.components['statusbar_text'].set(
                 f"Done! Converted {items} items."
-                )
+            )
         except AttributeError as atribute_error:
             messagebox.showerror(title='Exception!', message=atribute_error)
             self.components['statusbar_text'].set('Exception!')
